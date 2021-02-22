@@ -72,18 +72,57 @@ async function delay(ms) {
 }
 // ^ PROVIDED CODE ^ DO NOT REMOVE
 
+// Try to get the player id from the store and reject the promise if
+// the id is undefined
+const getPlayerId = () => {
+	return new Promise((resolve, reject) => {
+		const player_id = store.player_id
+		if(player_id !== undefined) {
+			resolve(player_id)
+		} else {
+			reject(`Please select a racer`)
+		}
+	})
+}
+
+// Try to get the track id from the store and reject the promise if
+// the id is undefined
+const getTrackId = () => {
+	return new Promise((resolve, reject) => {
+		const track_id = store.track_id
+		if(track_id !== undefined) {
+			resolve(track_id)
+		} else {
+			reject(`Please select a track`)
+		}
+	})
+}
+
 // This async function controls the flow of the race, add the logic and error handling
 async function handleCreateRace() {
-	// render starting UI
-	renderAt('#race', renderRaceStartView())
+  try {
+		// TODO - Get player_id and track_id from the store
+		// Wait until both ids are available
+		const player_id = await getPlayerId()
+		const track_id = await getTrackId()
+    console.log(`player id: ${player_id}, track id: ${track_id}`)
 
-	// TODO - Get player_id and track_id from the store
+		// TODO - invoke the API call to create the race, then save the result
+		const race = await createRace(player_id, track_id)
 
-	// const race = TODO - invoke the API call to create the race, then save the result
+		// TODO - update the store with the race id
+		store.race_id = race.ID
+		console.log('Store race id updated:', store.race_id)
 
-	// TODO - update the store with the race id
+		// The race has been created, render starting UI
+		renderAt('#race', renderRaceStartView({ name: race.Track.name }))
+	} catch(error) {
+		console.error(error)
+		console.log(`There was a problem creating the race`)
+		alert(error)
+	}
 
-	// The race has been created, now start the countdown
+  // The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
 
 	// TODO - call the async function startRace
@@ -145,6 +184,7 @@ function handleSelectPodRacer(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected racer to the store
+	store.player_id = target.id
 }
 
 function handleSelectTrack(target) {
@@ -160,7 +200,7 @@ function handleSelectTrack(target) {
 	target.classList.add('selected')
 
 	// TODO - save the selected track id to the store
-
+	store.track_id = target.id
 }
 
 function handleAccelerate() {
@@ -350,6 +390,9 @@ function createRace(player_id, track_id) {
 
 function getRace(id) {
 	// GET request to `${SERVER}/api/races/${id}`
+	return fetch(`${SERVER}/api/races/${id}`, defaultFetchOpts())
+		.then(response => response.json())
+    .catch(err => console.log("Problem with getRace request::", err))
 }
 
 function startRace(id) {
