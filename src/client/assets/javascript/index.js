@@ -319,27 +319,18 @@ function defaultFetchOpts() {
 
 // TODO - Make a fetch call (with error handling!) to each of the following API endpoints
 
-async function getTracks() {
+function getTracks() {
 	// GET request to `${SERVER}/api/tracks`
-	try {
-		const response = await fetch(`${SERVER}/api/tracks`, defaultFetchOpts())
-		return response.json()
-	} catch (err) {
-		console.log(`There was a problem when calling the tracks API`, err.message)
-		console.error(err)
-	}
-
+	return fetch(`${SERVER}/api/tracks`, defaultFetchOpts())
+		.then(response => response.json())
+	  .catch(err => console.log("Problem with tracks request::", err))
 }
 
-async function getRacers() {
+function getRacers() {
 	// GET request to `${SERVER}/api/cars`
-	try {
-		const response = await fetch(`${SERVER}/api/cars`, defaultFetchOpts())
-		return response.json()
-	} catch (err) {
-		console.log(`There was a problem when calling the cars API`, err.message)
-		console.error(err)
-	}
+	return fetch(`${SERVER}/api/cars`, defaultFetchOpts())
+		.then(response => response.json())
+    .catch(err => console.log("Problem with cars request::", err))
 }
 
 function createRace(player_id, track_id) {
