@@ -124,16 +124,21 @@ async function handleCreateRace() {
 
   // The race has been created, now start the countdown
 	// TODO - call the async function runCountdown
-
+  const countdown = await runCountdown().catch(err => console.log(err))
+	console.log(countdown)
 	// TODO - call the async function startRace
-
+	console.log('about to call startRace', store.race_id)
+	await startRace(store.race_id).catch(err => console.log(err))
 	// TODO - call the async function runRace
+	console.log('about to run race', store.race_id)
+	await runRace(store.race_id).catch(err => console.log(err))
+
 }
 
 function runRace(raceID) {
 	return new Promise(resolve => {
 	// TODO - use Javascript's built in setInterval method to get race info every 500ms
-
+    console.log('this is the run race id:', raceID)
 	/*
 		TODO - if the race info status property is "in-progress", update the leaderboard by calling:
 
@@ -159,12 +164,17 @@ async function runCountdown() {
 
 		return new Promise(resolve => {
 			// TODO - use Javascript's built in setInterval method to count down once per second
-
-			// run this DOM manipulation to decrement the countdown for the user
-			document.getElementById('big-numbers').innerHTML = --timer
-
 			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
-
+      const interval = setInterval(() => {
+				console.log('this is timer', timer)
+				if(timer === 0){
+					clearInterval(interval)
+					resolve('countdown done')
+				} else {
+					// run this DOM manipulation to decrement the countdown for the user
+					document.getElementById('big-numbers').innerHTML = --timer
+				}
+			}, 1000)
 		})
 	} catch(error) {
 		console.log(error);
@@ -401,7 +411,7 @@ function startRace(id) {
 		...defaultFetchOpts(),
 	})
 	.then(res => res.json())
-	.catch(err => console.log("Problem with getRace request::", err))
+	.catch(err => console.log("Problem with startRace request::", err))
 }
 
 function accelerate(id) {
