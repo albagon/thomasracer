@@ -101,20 +101,18 @@ const getTrackId = () => {
 // This async function controls the flow of the race, add the logic and error handling
 async function handleCreateRace() {
   try {
-		// TODO - Get player_id and track_id from the store
+		// Get player_id and track_id from the store
 		// Wait until both ids are available
 		const player_id = await getPlayerId()
 		const track_id = await getTrackId()
-    console.log(`player id: ${player_id}, track id: ${track_id}`)
 
-		// TODO - invoke the API call to create the race, then save the result
+		// Invoke the API call to create the race, then save the result
 		const race = await createRace(player_id, track_id)
-    console.log('this is the new race', race)
-		// TODO - update the store with the race id
+
+		// Update the store with the race id
 		// NOTE - The API uses the array index as race id, that is why we need to
 		// take away 1 from the original race id
 		store.race_id = race.ID - 1
-		console.log('Store race id updated:', store.race_id)
 
 		// The race has been created, render starting UI
 		renderAt('#race', renderRaceStartView({ name: race.Track.name }))
@@ -125,48 +123,37 @@ async function handleCreateRace() {
 	}
 
   // The race has been created, now start the countdown
-	// TODO - call the async function runCountdown
-  const countdown = await runCountdown().catch(err => console.log(err))
-	console.log(countdown)
-	// TODO - call the async function startRace
-	console.log('about to call startRace', store.race_id)
+	// Call the async function runCountdown
+  await runCountdown().catch(err => console.log(err))
+
+	// Call the async function startRace
 	await startRace(store.race_id).catch(err => console.log(err))
-	// TODO - call the async function runRace
-	console.log('about to run race', store.race_id)
+
+	// Call the async function runRace
 	await runRace(store.race_id).catch(err => console.log(err))
 
 }
 
 function runRace(raceID) {
 	return new Promise(resolve => {
-	// TODO - use Javascript's built in setInterval method to get race info every 500ms
-    console.log('this is the run race id:', raceID)
+	// Use Javascript's built in setInterval method to get race info every 500ms
 		const raceInterval = setInterval(async () => {
       const race_info = await getRace(raceID).catch(err => console.log(err))
-			console.log('positions', race_info.positions)
-			/*
-				TODO - if the race info status property is "in-progress", update the leaderboard by calling:
 
-				renderAt('#leaderBoard', raceProgress(res.positions))
-			*/
+			// If the race info status property is "in-progress",
+			// update the leaderboard
 			if(race_info.status == 'in-progress') {
 				renderAt('#leaderBoard', raceProgress(race_info.positions))
 			}
-			/*
-				TODO - if the race info status property is "finished", run the following:
-
-				clearInterval(raceInterval) // to stop the interval from repeating
-				renderAt('#race', resultsView(res.positions)) // to render the results view
-				reslove(res) // resolve the promise
-			*/
+			// If the race info status property is "finished",
 			if(race_info.status == 'finished') {
-				clearInterval(raceInterval) // to stop the interval from repeating
-				renderAt('#race', resultsView(race_info.positions)) // to render the results view
+				clearInterval(raceInterval) // stop the interval from repeating
+				renderAt('#race', resultsView(race_info.positions)) // render the results view
 				resolve(race_info) // resolve the promise
 			}
 		}, 500)
 	}).catch(err => console.log("Problem with run race::", err))
-	// remember to add error handling for the Promise
+	// Add error handling for the Promise
 }
 
 async function runCountdown() {
@@ -176,10 +163,9 @@ async function runCountdown() {
 		let timer = 3
 
 		return new Promise(resolve => {
-			// TODO - use Javascript's built in setInterval method to count down once per second
-			// TODO - if the countdown is done, clear the interval, resolve the promise, and return
+			// Use Javascript's built in setInterval method to count down once per second
+			// If the countdown is done, clear the interval, resolve the promise, and return
       const interval = setInterval(() => {
-				console.log('this is timer', timer)
 				if(timer === 0){
 					clearInterval(interval)
 					resolve('countdown done')
@@ -206,7 +192,7 @@ function handleSelectPodRacer(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected racer to the store
+	// Save the selected racer to the store
 	store.player_id = parseInt(target.id)
 }
 
@@ -222,13 +208,13 @@ function handleSelectTrack(target) {
 	// add class selected to current target
 	target.classList.add('selected')
 
-	// TODO - save the selected track id to the store
+	// Save the selected track id to the store
 	store.track_id = target.id
 }
 
 function handleAccelerate() {
 	console.log("accelerate button clicked")
-	// TODO - Invoke the API call to accelerate
+	// Invoke the API call to accelerate
 	accelerate(store.race_id).catch(err => console.log(err))
 }
 
@@ -381,7 +367,7 @@ function defaultFetchOpts() {
 	}
 }
 
-// TODO - Make a fetch call (with error handling!) to each of the following API endpoints
+// Make a fetch call (with error handling!) to each of the following API endpoints
 
 function getTracks() {
 	// GET request to `${SERVER}/api/tracks`
