@@ -97,7 +97,7 @@ Accelerate a car
 
 ## Contributing
 
-This repository is the result of my second project for [Udacity](https://www.udacity.com/)'s Intermediate JavaScript Nanodegree. Therefore, all contributions are welcome.
+This repository is the result of my last project for [Udacity](https://www.udacity.com/)'s Intermediate JavaScript Nanodegree. Therefore, all contributions are welcome.
 
 For details, please check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
