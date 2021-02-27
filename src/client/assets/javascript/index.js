@@ -332,7 +332,7 @@ function raceProgress(positions) {
 				</td>
 			</tr>
 		`
-	})
+	}).reduce((acc, curr) => acc + curr)
 
 	return `
 		<main>
