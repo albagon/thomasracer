@@ -1,10 +1,10 @@
-# Welcome to the One and only UdaciRacer Simulation Game
+# Welcome to the ThomasRacer Simulation Game
 
 ## Project Introduction
 
-Here is a partially built-out game that races cars—your job is to complete it! Throughout the game logic, you will find _"TODO"_ comments that must be completed in order for the game to work. You are going to use the asynchronous skills you gained in the course to fill in the blanks in this game.
+This is the final project for the Intermediate JavaScript Nanodegree from [Udacity](https://www.udacity.com/). A partially built-out game that races cars was provided—my job was to complete it! The goal of the project is to use the asynchronous skills gained in the course to fill in the blanks in this game.
 
-The game mechanics are this: you select a player and track, the game begins and you accelerate your racer by clicking an acceleration button. As you accelerate so do the other players and the leaderboard live-updates as players change position on the track. The final view is a results page displaying the players' rankings.
+The game mechanics are these: you select a player and a track, the game begins and you accelerate your racer by clicking an acceleration button. As you accelerate so do the other players and the leaderboard live-updates as players change position on the track. The final view is a results page displaying the players' rankings.
 
 The game has three main views:
 
@@ -16,7 +16,7 @@ The game has three main views:
 
 ## Starter Code
 
-We have supplied you with the following:
+Code supplied:
 
 1. An API. The API is provided in the form of a binary held in the bin folder. You never need to open the binary file, as there are no edits you can make to it. Your work will be 100% in the front end.
 
@@ -42,26 +42,17 @@ Note that this process will use your terminal tab, so you will have to open a ne
 
 #### WINDOWS USERS -- Setting Environment Variables
 If you are using a windows machine:
-1. `cd` into the root of the project containing data.json 
+1. `cd` into the root of the project containing data.json
 2. Run the following command to add the environment variable:
-```set DATA_FILE=./data.json```
-
-If you still run into issues running the API server on your machine, you can run this project in the Udacity classroom.
-
+`set DATA_FILE=./data.json`
 
 ### Start the Frontend
 
 First, run your preference of `npm install && npm start` or `yarn && yarn start` at the root of this project. Then you should be able to access http://localhost:3000.
 
-## Project Requirements
-
-This starter code base has directions for you in `src/client/assets/javascript/index.js`. There you will be directed to use certain asynchronous methods to achieve tasks. You will know you're making progress as you can play through more and more of the game.
-
 ### API Calls
 
-To complete the project you must first create the calls to the API. These will all be fetch requests, and all information needed to create the request is provided in the instructions. The API calls are all at the bottom of the file: `src/client/assets/javascript/index.js`.
-
-Below are a list of the API endpoints and the shape of the data they return. These are all of the endpoints you need to complete the game. Consult this information often as you complete the project:
+Below are a list of the API endpoints and the shape of the data they return. These are all of the endpoints you need to complete the game. Consult this information often as you update the project:
 
 [GET] `api/tracks`
 List of all tracks
@@ -104,4 +95,12 @@ Accelerate a car
 
 - Returns nothing
 
-To complete the race logic, find all the TODO tags in index.js and read the instructions.
+## Contributing
+
+This repository is the result of my second project for [Udacity](https://www.udacity.com/)'s Intermediate JavaScript Nanodegree. Therefore, all contributions are welcome.
+
+For details, please check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+_ThomasRacer_ is distributed under the [MIT license](LICENSE.md).
