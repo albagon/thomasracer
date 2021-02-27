@@ -1,5 +1,5 @@
 form ul {
-    display: flex;
+    display: block;
     padding: 20px;
 }
 
@@ -28,4 +28,11 @@ form li h3 {
     border-bottom: 1px solid #545454;
     padding-bottom: 10px;
     margin-bottom: 10px;
+}
+
+/* -------------------  TABLET  --------------------- */
+@media (min-width: 768px) {
+  form ul {
+    display: flex;
+  }
 }
