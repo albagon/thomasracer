@@ -310,7 +310,7 @@ function resultsView(positions) {
 		<header>
 			<h1>Race Results</h1>
 		</header>
-		<main>
+		<main id="results">
 			${raceProgress(positions)}
 			<a href="/race">Start a new race</a>
 		</main>
@@ -335,12 +335,10 @@ function raceProgress(positions) {
 	}).reduce((acc, curr) => acc + curr)
 
 	return `
-		<main>
-			<h3>Leaderboard</h3>
-			<section id="leaderBoard">
-				${results}
-			</section>
-		</main>
+		<h3>Leaderboard</h3>
+		<section id="leaderBoard">
+			${results}
+		</section>
 	`
 }
 

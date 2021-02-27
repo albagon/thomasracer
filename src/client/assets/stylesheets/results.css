@@ -1,7 +1,10 @@
 /* RESULTS PAGE SPECIFIC STYLES */
 
 /* -------------------  MOBILE  --------------------- */
-
+main#results {
+    margin: 20px;
+    display: inline-block;
+}
 
 /* -------------------  TABLET  --------------------- */
 @media (min-width: 768px) {
